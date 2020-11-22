@@ -1,11 +1,39 @@
-﻿@model Customer
+﻿@model List<Customer>
 
     <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>Customers</title>
     </head>
     <body>
-        <label> @Model.FirstName</label>
-        
+        <table border="1">
+            <tr>
+                <th>Customer ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone</th>
+                <th colspan="2">Actions</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CustomerID</td>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.Phone</td>
+                    <td>
+                        <a asp-controller="Customers"
+                           asp-action="Update"
+                           asp-route-id="@item.CustomerID"
+                           class="linkbutton">Update</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Customers"
+                           asp-action="Delete"
+                           asp-route-id="@item.CustomerID"
+                           class="linkbutton">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
     </body>
     </html>
