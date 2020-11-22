@@ -22,7 +22,7 @@ namespace Etzmon.Customers.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString = Configuration.GetConnectionString("RepositoryDB");
+            string connectionString = Configuration.GetConnectionString("CustomersDB");
 
             services.AddTransient<IDbConnection>(db => new SqlConnection(
             connectionString));
