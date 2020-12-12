@@ -16,6 +16,7 @@ namespace Etzmon.Customers.Web.Controllers
             _config = config;
         }
 
+        [HttpGet]
         public IActionResult List()
         {
             List<Customer> data = new List<Customer>();
@@ -25,6 +26,26 @@ namespace Etzmon.Customers.Web.Controllers
             data = reader.ToList();
 
             return View(data);
+        }
+
+        [HttpPost]
+        public IActionResult Insert([FromBody] Customer customer)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@CustomerID", customer.CustomerID);
+            parameters.Add("@LastName", customer.LastName);
+            parameters.Add("@FirstName", customer.FirstName);
+            parameters.Add("@Phone", customer.Phone);
+            
+            
+
+            int count = _config.Execute("InsertByCustomer",
+                parameters,
+                commandType: CommandType.StoredProcedure);
+
+            //int trainingID = parameters.Get<int>("@CustomerID");    
+            return View(customer);
+
         }
     }
 }
